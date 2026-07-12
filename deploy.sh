@@ -6,13 +6,13 @@ set -e
 
 KEY="$HOME/$SSH_KEY"
 HOST="ec2-user@ec2-3-215-103-177.compute-1.amazonaws.com"
-REMOTE_DIR="/var/www/html/"
+REMOTE_DIR="/var/www/html"
 SITE_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 echo "==> Checking key file..."
 if [ ! -f "$KEY" ]; then
   echo "ERROR: Key file not found at $KEY"
-  echo "Place mehanfamily.pem in your home directory (~/) and try again."
+  echo "Place EC2 SSH_KEY safely in $HOME/.ssh in your home directory (~/) and try again."
   exit 1
 fi
 
