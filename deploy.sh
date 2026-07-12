@@ -4,7 +4,7 @@
 
 set -e
 
-KEY="$HOME/mehanfamily.pem"
+KEY="$HOME/$SSH_KEY"
 HOST="ec2-user@ec2-3-215-103-177.compute-1.amazonaws.com"
 REMOTE_DIR="/var/www/html/"
 SITE_DIR="$(cd "$(dirname "$0")" && pwd)"
