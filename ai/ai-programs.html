@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>AI programs on the market — Catalog</title>
+  <style>
+    :root{
+      --ink:#0d0f12; --panel:#15181d; --panel-2:#1b1f26; --line:#2a2f38;
+      --paper:#ece6da; --amber:#e0a44a; --teal:#5fb0a5;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    body{color:var(--ink); background:#fff; margin:0; padding:0;}
+    .container{max-width:1100px; margin:28px auto; padding:20px;}
+    .article-grid{display:grid; grid-template-columns:1fr 260px; gap:28px;}
+    .card{background:#f7f7f8; padding:14px; margin-bottom:12px; border-radius:8px; border:1px solid #e6e6e8;}
+    .meta{font-size:0.9rem; color:#555;}
+    .search{display:flex; gap:8px; margin-bottom:12px;}
+    .filters button{margin-right:6px;}
+    table{width:100%; border-collapse:collapse;}
+    td,th{padding:10px; border-bottom:1px solid #eee;}
+    .side{position:sticky; top:80px;}
+    .sources{margin-top:28px; columns:2; column-gap:20px; font-size:0.95rem;}
+    @media (max-width:760px){ .article-grid{grid-template-columns:1fr;} .side{position:relative; top:auto;} }
+  </style>
+</head>
+<body>
+  <nav class="topnav card" role="navigation">
+    <div class="brand">MyBook — AI Catalog</div>
+  </nav>
+
+  <main class="container">
+    <div class="article-grid">
+      <section>
+        <h1>AI programs on the market — catalog</h1>
+        <p class="meta">Snapshot updated: <span id="snapshot-date">2026-07-15</span></p>
+
+        <div class="card search" aria-hidden="false">
+          <input id="q" placeholder="Search name, vendor, tags..." style="flex:1;padding:8px;border-radius:6px;border:1px solid #ddd">
+          <div class="filters">
+            <button data-cat="all" onclick="setCategory('all')">All</button>
+            <button data-cat="conversational" onclick="setCategory('conversational')">Conversational</button>
+            <button data-cat="code" onclick="setCategory('code')">Code</button>
+            <button data-cat="image" onclick="setCategory('image')">Image/Video</button>
+            <button data-cat="platform" onclick="setCategory('platform')">Platform</button>
+            <button data-cat="content" onclick="setCategory('content')">Content</button>
+          </div>
+        </div>
+
+        <section id="list">
+          <!-- Items inserted here by JS -->
+        </section>
+
+        <div class="sources card">
+          <h3>Sources & Further Reading</h3>
+          <ol id="sources-list"></ol>
+        </div>
+      </section>
+
+      <aside class="side card">
+        <h4>In this catalog</h4>
+        <ul>
+          <li><a href="#list">All programs</a></li>
+          <li><a href="#sources-list">Sources</a></li>
+        </ul>
+        <h4>Notes</h4>
+        <p class="meta">Curated snapshot. For licensing or logos see vendor pages.</p>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // Populated dataset (initial research snapshot 2026-07-15)
+    const data = [
+      {name: "ChatGPT", vendor: "OpenAI", url: "https://chatgpt.com", category: "conversational", pricing: "Free tier / Plus / Enterprise", tags: "chat,assistant,general", desc: "Industry-leading conversational AI for writing, coding, analysis, and automation.", source: "https://chatgpt.com"},
+      {name: "Claude", vendor: "Anthropic", url: "https://claude.ai", category: "conversational", pricing: "Subscription / Enterprise", tags: "chat,assistant,safety", desc: "Advanced AI assistant known for safe, nuanced dialogue and long-document analysis.", source: "https://claude.ai"},
+      {name: "Gemini", vendor: "Google", url: "https://gemini.google.com", category: "conversational", pricing: "Integrated into Google products / enterprise", tags: "multimodal,search,workspace", desc: "Google's multimodal AI platform for text, image, and code reasoning available across Workspace and Search.", source: "https://gemini.google.com"},
+      {name: "Perplexity", vendor: "Perplexity", url: "https://www.perplexity.ai", category: "conversational", pricing: "Free / Pro", tags: "search,qa,citations", desc: "AI-powered answer engine combining live web results with conversational Q&A and citations.", source: "https://www.perplexity.ai"},
+      {name: "Grok", vendor: "xAI (X)", url: "https://grok.x.ai", category: "conversational", pricing: "Integrated with X subscriptions", tags: "chat,real-time", desc: "Conversational assistant built into X (Twitter) with real-time dialogue and content generation.", source: "https://grok.x.ai"},
+
+      {name: "GitHub Copilot", vendor: "GitHub (Microsoft)", url: "https://github.com/features/copilot", category: "code", pricing: "Personal / Business", tags: "ide,code,autocomplete", desc: "AI pair programmer that suggests code and explanations directly in editors like VS Code.", source: "https://github.com/features/copilot"},
+      {name: "Microsoft Copilot", vendor: "Microsoft", url: "https://copilot.microsoft.com", category: "code", pricing: "Included with Microsoft 365 / Windows subscriptions", tags: "productivity,office,automation", desc: "Conversational AI assistant integrated into Office 365, Windows, and Edge for productivity and workflow automation.", source: "https://copilot.microsoft.com"},
+      {name: "Replit Ghostwriter", vendor: "Replit", url: "https://replit.com/ghostwriter", category: "code", pricing: "Subscription", tags: "ide,code", desc: "AI code assistant and project generator integrated into Replit’s browser-based IDE.", source: "https://replit.com/ghostwriter"},
+
+      {name: "Midjourney", vendor: "Midjourney", url: "https://www.midjourney.com", category: "image", pricing: "Subscription / credits", tags: "image,art,generative", desc: "AI art generator renowned for high-quality, painterly aesthetics from text prompts.", source: "https://www.midjourney.com"},
+      {name: "Stable Diffusion", vendor: "Stability AI", url: "https://stability.ai", category: "image", pricing: "Open-source / commercial offerings", tags: "image,open-source,models", desc: "Open-source generative image model powering thousands of creative apps and workflows.", source: "https://stability.ai"},
+      {name: "Adobe Firefly", vendor: "Adobe", url: "https://www.adobe.com/products/firefly.html", category: "image", pricing: "Creative Cloud / enterprise", tags: "image,design,creative-cloud", desc: "Suite of generative AI tools for text-to-image, vector, and design integration built into Adobe Creative Cloud.", source: "https://www.adobe.com/products/firefly.html"},
+      {name: "Runway", vendor: "Runway", url: "https://runwayml.com", category: "image", pricing: "Subscription", tags: "video,image,generative", desc: "Creative suite for AI video generation, editing, and content creation using generative models.", source: "https://runwayml.com"},
+
+      {name: "Jasper", vendor: "Jasper AI", url: "https://www.jasper.ai", category: "content", pricing: "Subscription", tags: "marketing,copywriting,content", desc: "AI content platform for generating marketing copy, blogs, and visuals at scale.", source: "https://www.jasper.ai"},
+
+      {name: "Hugging Face", vendor: "Hugging Face", url: "https://huggingface.co", category: "platform", pricing: "Open / paid plans", tags: "models,hub,ml", desc: "Open-source platform and community for hosting, sharing, and running AI and machine learning models.", source: "https://huggingface.co"}
+    ];
+
+    const listEl = document.getElementById('list');
+    const sourcesEl = document.getElementById('sources-list');
+    const qEl = document.getElementById('q');
+    function render() {
+      const q = qEl.value.trim().toLowerCase();
+      listEl.innerHTML = '';
+      const sources = new Map();
+      data.forEach((item) => {
+        if (currentCategory !== 'all' && item.category !== currentCategory) return;
+        if (q && !`${item.name} ${item.vendor} ${item.tags||''} ${item.desc}`.toLowerCase().includes(q)) return;
+        const art = document.createElement('article');
+        art.className = 'card';
+        art.innerHTML = `<h3><a href="${item.url}" target="_blank" rel="noopener">${item.name}</a></h3>
+          <p class="meta">${item.vendor} — ${item.pricing || '—'}</p>
+          <p>${item.desc || ''}</p>`;
+        listEl.appendChild(art);
+        if (item.source) sources.set(item.source, item.source);
+      });
+      sourcesEl.innerHTML = '';
+      Array.from(sources.keys()).forEach(s => {
+        const li = document.createElement('li');
+        li.innerHTML = `<a href="${s}" target="_blank" rel="noopener">${s}</a>`;
+        sourcesEl.appendChild(li);
+      });
+    }
+    let currentCategory = 'all';
+    function setCategory(cat){ currentCategory = cat; render(); }
+    qEl.addEventListener('input', render);
+    render();
+  </script>
+</body>
+</html>
