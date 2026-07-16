@@ -33,7 +33,7 @@
     <div class="article-grid">
       <section>
         <h1>AI programs on the market — catalog</h1>
-        <p class="meta">Snapshot updated: <span id="snapshot-date">2026-07-15</span></p>
+        <p class="meta">Snapshot updated: <span id="snapshot-date">2026-07-16</span></p>
 
         <div class="card search" aria-hidden="false">
           <input id="q" placeholder="Search name, vendor, tags..." style="flex:1;padding:8px;border-radius:6px;border:1px solid #ddd">
@@ -70,26 +70,31 @@
   </main>
 
   <script>
-    // Populated dataset (initial research snapshot 2026-07-15)
+    // Populated dataset (initial research snapshot 2026-07-16)
     const data = [
-      {name: "ChatGPT", vendor: "OpenAI", url: "https://chatgpt.com", category: "conversational", pricing: "Free tier / Plus / Enterprise", tags: "chat,assistant,general", desc: "Industry-leading conversational AI for writing, coding, analysis, and automation.", source: "https://chatgpt.com"},
-      {name: "Claude", vendor: "Anthropic", url: "https://claude.ai", category: "conversational", pricing: "Subscription / Enterprise", tags: "chat,assistant,safety", desc: "Advanced AI assistant known for safe, nuanced dialogue and long-document analysis.", source: "https://claude.ai"},
-      {name: "Gemini", vendor: "Google", url: "https://gemini.google.com", category: "conversational", pricing: "Integrated into Google products / enterprise", tags: "multimodal,search,workspace", desc: "Google's multimodal AI platform for text, image, and code reasoning available across Workspace and Search.", source: "https://gemini.google.com"},
-      {name: "Perplexity", vendor: "Perplexity", url: "https://www.perplexity.ai", category: "conversational", pricing: "Free / Pro", tags: "search,qa,citations", desc: "AI-powered answer engine combining live web results with conversational Q&A and citations.", source: "https://www.perplexity.ai"},
-      {name: "Grok", vendor: "xAI (X)", url: "https://grok.x.ai", category: "conversational", pricing: "Integrated with X subscriptions", tags: "chat,real-time", desc: "Conversational assistant built into X (Twitter) with real-time dialogue and content generation.", source: "https://grok.x.ai"},
+      {name: "ChatGPT", vendor: "OpenAI", url: "https://chatgpt.com", category: "conversational", pricing: "Free tier / Plus / Enterprise", tags: "chat,assistant,general", desc: "Industry-leading conversational AI with multimodal capabilities, web browsing, and advanced reasoning. Powers millions of users worldwide."},
+      {name: "Claude", vendor: "Anthropic", url: "https://claude.ai", category: "conversational", pricing: "Subscription / Enterprise", tags: "chat,assistant,safety", desc: "Advanced AI assistant known for thoughtful reasoning, long context windows (200k tokens), and safety-focused design. Available as web app and API."},
+      {name: "Gemini", vendor: "Google", url: "https://gemini.google.com", category: "conversational", pricing: "Integrated into Google products / enterprise", tags: "multimodal,search,workspace", desc: "Google's multimodal AI model integrated into search, Gmail, and Workspace. Available in free and professional tiers with real-time web search."},
+      {name: "Perplexity", vendor: "Perplexity", url: "https://www.perplexity.ai", category: "conversational", pricing: "Free / Pro", tags: "search,qa,citations", desc: "AI-powered answer engine combining conversational search with cited sources. Focus on accuracy and transparency with real-time web access."},
+      {name: "Grok", vendor: "xAI (X)", url: "https://grok.x.ai", category: "conversational", pricing: "Integrated with X subscriptions", tags: "chat,real-time", desc: "Conversational assistant built by xAI with real-time knowledge from X (formerly Twitter). Available to X Premium subscribers."},
 
-      {name: "GitHub Copilot", vendor: "GitHub (Microsoft)", url: "https://github.com/features/copilot", category: "code", pricing: "Personal / Business", tags: "ide,code,autocomplete", desc: "AI pair programmer that suggests code and explanations directly in editors like VS Code.", source: "https://github.com/features/copilot"},
-      {name: "Microsoft Copilot", vendor: "Microsoft", url: "https://copilot.microsoft.com", category: "code", pricing: "Included with Microsoft 365 / Windows subscriptions", tags: "productivity,office,automation", desc: "Conversational AI assistant integrated into Office 365, Windows, and Edge for productivity and workflow automation.", source: "https://copilot.microsoft.com"},
-      {name: "Replit Ghostwriter", vendor: "Replit", url: "https://replit.com/ghostwriter", category: "code", pricing: "Subscription", tags: "ide,code", desc: "AI code assistant and project generator integrated into Replit’s browser-based IDE.", source: "https://replit.com/ghostwriter"},
+      {name: "GitHub Copilot", vendor: "GitHub (Microsoft)", url: "https://github.com/features/copilot", category: "code", pricing: "Personal / Business", tags: "ide,code,autocomplete", desc: "AI pair programmer that suggests code completions and generates functions. Integrated into VS Code, JetBrains IDEs, and Neovim."},
+      {name: "Microsoft Copilot", vendor: "Microsoft", url: "https://copilot.microsoft.com", category: "code", pricing: "Included with Microsoft 365 / Windows subscriptions", tags: "productivity,office,code", desc: "Copilot integration across Microsoft products including Office, Windows, and VS Code. Helps with writing, analysis, and coding tasks."},
+      {name: "Replit Ghostwriter", vendor: "Replit", url: "https://replit.com/ghostwriter", category: "code", pricing: "Subscription", tags: "ide,code", desc: "AI code assistant and project generator built into Replit. Generates complete projects and helps debug code in real-time."},
+      {name: "Cursor", vendor: "Anysphere", url: "https://cursor.sh", category: "code", pricing: "Free / Subscription", tags: "ide,copilot,ai-native", desc: "AI-first code editor built on VS Code architecture. Features intelligent code generation, chat, and diff views."},
 
-      {name: "Midjourney", vendor: "Midjourney", url: "https://www.midjourney.com", category: "image", pricing: "Subscription / credits", tags: "image,art,generative", desc: "AI art generator renowned for high-quality, painterly aesthetics from text prompts.", source: "https://www.midjourney.com"},
-      {name: "Stable Diffusion", vendor: "Stability AI", url: "https://stability.ai", category: "image", pricing: "Open-source / commercial offerings", tags: "image,open-source,models", desc: "Open-source generative image model powering thousands of creative apps and workflows.", source: "https://stability.ai"},
-      {name: "Adobe Firefly", vendor: "Adobe", url: "https://www.adobe.com/products/firefly.html", category: "image", pricing: "Creative Cloud / enterprise", tags: "image,design,creative-cloud", desc: "Suite of generative AI tools for text-to-image, vector, and design integration built into Adobe Creative Cloud.", source: "https://www.adobe.com/products/firefly.html"},
-      {name: "Runway", vendor: "Runway", url: "https://runwayml.com", category: "image", pricing: "Subscription", tags: "video,image,generative", desc: "Creative suite for AI video generation, editing, and content creation using generative models.", source: "https://runwayml.com"},
+      {name: "Midjourney", vendor: "Midjourney", url: "https://www.midjourney.com", category: "image", pricing: "Subscription / credits", tags: "image,art,generative", desc: "AI art generator renowned for aesthetic, stylized image generation. Discord-based interface with subscription plans starting at $10/month."},
+      {name: "Stable Diffusion", vendor: "Stability AI", url: "https://stability.ai", category: "image", pricing: "Open-source / commercial offerings", tags: "image,open-source,models", desc: "Open-source image generation model available for local deployment or via API. Foundation for many third-party AI image tools."},
+      {name: "Adobe Firefly", vendor: "Adobe", url: "https://www.adobe.com/products/firefly.html", category: "image", pricing: "Creative Cloud / enterprise", tags: "image,design,creative-cloud", desc: "Adobe's generative AI integrated into Creative Cloud. Offers generative fill, expand, and style matching for photo and design work."},
+      {name: "Runway", vendor: "Runway", url: "https://runwayml.com", category: "image", pricing: "Subscription", tags: "video,image,generative", desc: "Creative suite for AI video generation, editing, and effects. Features real-time video synthesis and professional-grade tools."},
+      {name: "Leonardo.ai", vendor: "Leonardo", url: "https://leonardo.ai", category: "image", pricing: "Free / Paid", tags: "image,generative,art", desc: "AI image generation platform with style consistency and custom model training. Offers real-time generation and batch processing."},
 
-      {name: "Jasper", vendor: "Jasper AI", url: "https://www.jasper.ai", category: "content", pricing: "Subscription", tags: "marketing,copywriting,content", desc: "AI content platform for generating marketing copy, blogs, and visuals at scale.", source: "https://www.jasper.ai"},
+      {name: "Jasper", vendor: "Jasper AI", url: "https://www.jasper.ai", category: "content", pricing: "Subscription", tags: "marketing,copywriting,content", desc: "AI content platform for generating marketing copy, blog posts, and brand messaging. Includes SEO optimization and brand voice management."},
+      {name: "NotebookLM", vendor: "Google", url: "https://notebooklm.google.com", category: "content", pricing: "Free", tags: "research,notes,ai", desc: "AI research notebook for analyzing documents and generating insights. Converts source materials into study guides and podcast-style summaries."},
+      {name: "ElevenLabs", vendor: "ElevenLabs", url: "https://elevenlabs.io", category: "content", pricing: "Free / Paid", tags: "voice,audio,tts", desc: "AI voice generation and text-to-speech platform. Offers realistic voice synthesis in multiple languages for content creators and developers."},
 
-      {name: "Hugging Face", vendor: "Hugging Face", url: "https://huggingface.co", category: "platform", pricing: "Open / paid plans", tags: "models,hub,ml", desc: "Open-source platform and community for hosting, sharing, and running AI and machine learning models.", source: "https://huggingface.co"}
+      {name: "Hugging Face", vendor: "Hugging Face", url: "https://huggingface.co", category: "platform", pricing: "Open / paid plans", tags: "models,hub,ml", desc: "Open-source platform and community hub for machine learning models. Hosts thousands of LLMs, vision models, and datasets."},
+      {name: "Anthropic Console", vendor: "Anthropic", url: "https://console.anthropic.com", category: "platform", pricing: "Pay-as-you-go", tags: "api,models,platform", desc: "Hosted API platform for Claude models. Offers flexible pay-per-use pricing with adjustable rate limits and batch processing."}
     ];
 
     const listEl = document.getElementById('list');
